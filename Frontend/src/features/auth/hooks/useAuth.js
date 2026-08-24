@@ -49,11 +49,23 @@ export const useAuth = () => {
     useEffect(() => {
 
         const getAndSetUser = async () => {
-            try {
+            const hasToken = document.cookie.split(';').some((item) => item.trim().startsWith('token='));
+            if (!hasToken) {
+                setUser(null)
+                setLoading(false)
+                return
+            }
 
+            try {
                 const data = await getMe()
-                setUser(data.user)
-            } catch (err) { } finally {
+                if (data && data.user) {
+                    setUser(data.user)
+                } else {
+                    setUser(null)
+                }
+            } catch (err) {
+                setUser(null)
+            } finally {
                 setLoading(false)
             }
         }

@@ -41,11 +41,14 @@ export async function logout() {
 }
 
 export async function getMe() {
-    
-    try{
+    try {
         const response = await api.get('/api/auth/get-me')
         return response.data
-    }catch(error){
-        console.log(error)
+    } catch (error) {
+        if (error.response && error.response.status === 401) {
+            return null
+        }
+        console.error("Error fetching user details:", error)
+        throw error
     }
 }
