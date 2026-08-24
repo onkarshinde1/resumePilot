@@ -1,0 +1,554 @@
+// ─────────────────────────────────────────────────────────────────────────────
+//  Interview Page  –  three-column report layout
+//  Theme tokens mirror home.scss (#0d1117 bg · #e1034d accent · #252d3d border)
+// ─────────────────────────────────────────────────────────────────────────────
+
+// ── Design tokens ─────────────────────────────────────────────────────────────
+$bg-page:      #0d1117;
+$bg-container: #161b27;
+$bg-surface:   #1e2433;
+$border:       #252d3d;
+$border-light: #2a3347;
+$accent:       #e1034d;
+$accent-glow:  rgba(225, 3, 77, 0.25);
+$text-primary: #e8ecf3;
+$text-muted:   #7a8394;
+$text-dim:     #4a5568;
+$green:        #34d399;
+$amber:        #f59e0b;
+$blue:         #60a5fa;
+$radius-lg:    1rem;
+$radius-md:    0.65rem;
+$radius-sm:    0.45rem;
+
+// ── Page wrapper ──────────────────────────────────────────────────────────────
+.interview-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem 1.5rem 2.5rem;
+  background-color: $bg-page;
+}
+
+// ── Page header ───────────────────────────────────────────────────────────────
+.interview-page-header {
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+
+    h1 {
+      font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+      font-weight: 800;
+      color: $text-primary;
+      letter-spacing: -0.3px;
+    }
+  }
+
+  &__date {
+    font-size: 0.78rem;
+    color: $text-dim;
+  }
+}
+
+// ── Match score SVG ring (inside left sidebar) ───────────────────────────────
+.match-score {
+  position: relative;
+  // Centred inside the sidebar, with a comfortable size
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 0.5rem;
+  flex-shrink: 0;
+
+  &__ring {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+    display: block;
+  }
+
+  &__track {
+    fill: none;
+    stroke: $border-light;
+    stroke-width: 2.5;
+  }
+
+  &__fill {
+    fill: none;
+    stroke: $accent;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    transition: stroke-dasharray 0.8s ease;
+    filter: drop-shadow(0 0 5px $accent-glow);
+  }
+
+  &__text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.1rem;
+  }
+
+  &__value {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: $text-primary;
+    line-height: 1;
+  }
+
+  &__label {
+    font-size: 0.6rem;
+    color: $text-muted;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+}
+
+// ── Three-column container ────────────────────────────────────────────────────
+.interview-container {
+  width: 100%;
+  max-width: 1100px;
+  background-color: $bg-container;
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  display: flex;
+  min-height: 560px;
+
+  @media (max-width: 860px) {
+    flex-direction: column;
+  }
+}
+
+// ── Vertical dividers ─────────────────────────────────────────────────────────
+.iv-divider {
+  width: 1px;
+  background-color: $border;
+  flex-shrink: 0;
+
+  @media (max-width: 860px) {
+    width: 100%;
+    height: 1px;
+  }
+}
+
+// ── Sidebars ──────────────────────────────────────────────────────────────────
+.iv-sidebar {
+  width: 210px;
+  flex-shrink: 0;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column; 
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 1.25rem;
+
+  &--right {
+    width: 230px;
+    padding: 1.5rem 1.25rem;
+    // right sidebar keeps top-aligned naturally
+    justify-content: flex-start;
+  }
+
+  @media (max-width: 860px) {
+    width: 100%;
+
+    &--right {
+      width: 100%;
+    }
+  }
+}
+
+// ── Left nav ──────────────────────────────────────────────────────────────────
+.iv-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  // sits directly below the match-score ring, top-aligned
+  align-self: stretch;
+  justify-content: space-between;
+
+  @media (max-width: 860px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+}
+
+.iv-nav__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border: none;
+  border-radius: $radius-md;
+  background: transparent;
+  color: $text-muted;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.18s ease, color 0.18s ease;
+
+  &:hover {
+    background-color: rgba($accent, 0.06);
+    color: $text-primary;
+  }
+
+  &--active {
+    background-color: rgba($accent, 0.1);
+    color: $text-primary;
+  }
+
+  @media (max-width: 860px) {
+    width: auto;
+  }
+}
+
+.iv-nav__icon { font-size: 1rem; flex-shrink: 0; }
+.iv-nav__label { flex: 1; }
+
+.iv-nav__indicator {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background-color: $accent;
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 8px $accent-glow;
+}
+
+// ── Center main area ──────────────────────────────────────────────────────────
+.iv-main {
+  flex: 1;
+  padding: 1.75rem;
+  overflow-y: auto;
+  min-width: 0;
+}
+
+// ── Content section ───────────────────────────────────────────────────────────
+.content-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: $text-primary;
+  margin: 0;
+}
+
+.section-subtitle {
+  font-size: 0.8rem;
+  color: $text-muted;
+  margin: -0.4rem 0 0.4rem;
+}
+
+// ── Questions list ────────────────────────────────────────────────────────────
+.questions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+// ── Question card ─────────────────────────────────────────────────────────────
+.q-card {
+  background-color: $bg-surface;
+  border: 1px solid $border-light;
+  border-radius: $radius-md;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover { border-color: rgba($accent, 0.3); }
+
+  &--open {
+    border-color: rgba($accent, 0.4);
+    box-shadow: 0 0 0 1px rgba($accent, 0.08);
+  }
+}
+
+.q-card__header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.9rem 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: background-color 0.15s ease;
+
+  &:hover { background-color: rgba(255, 255, 255, 0.02); }
+}
+
+.q-card__num {
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: $accent;
+  padding: 0.15rem 0.4rem;
+  background-color: rgba($accent, 0.1);
+  border-radius: $radius-sm;
+  font-family: 'Courier New', monospace;
+  margin-top: 0.1rem;
+}
+
+.q-card__question {
+  flex: 1;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: $text-primary;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.q-card__chevron {
+  flex-shrink: 0;
+  font-size: 0.6rem;
+  color: $text-dim;
+  margin-top: 0.25rem;
+}
+
+.q-card__body {
+  border-top: 1px solid $border;
+  display: flex;
+  flex-direction: column;
+}
+
+.q-card__block {
+  padding: 0.9rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  p { margin: 0; font-size: 0.82rem; line-height: 1.65; }
+
+  &--intention {
+    background-color: rgba(59, 130, 246, 0.06);
+    border-bottom: 1px solid $border;
+    p { color: #93b4d8; }
+  }
+
+  &--answer {
+    background-color: rgba(52, 211, 153, 0.05);
+    p { color: #a8d8c0; }
+  }
+}
+
+.q-card__block-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: $text-muted;
+}
+
+// ── Road map ──────────────────────────────────────────────────────────────────
+.roadmap-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.day-card {
+  background-color: $bg-surface;
+  border: 1px solid $border-light;
+  border-radius: $radius-md;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+
+  &:hover { border-color: rgba($accent, 0.3); }
+}
+
+.day-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid $border;
+}
+
+.day-card__num {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: $accent;
+  padding: 0.15rem 0.5rem;
+  background-color: rgba($accent, 0.1);
+  border-radius: $radius-sm;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+
+.day-card__focus {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: $text-primary;
+}
+
+.day-card__tasks {
+  margin: 0;
+  padding: 0.85rem 1rem 0.85rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  li {
+    font-size: 0.82rem;
+    color: $text-muted;
+    line-height: 1.55;
+    &::marker { color: $accent; }
+  }
+}
+
+// ── Right sidebar – Skill Gaps ────────────────────────────────────────────────
+.skill-gaps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.skill-gaps__title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: $text-primary;
+  margin: 0;
+}
+
+.skill-gaps__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.skill-gap-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.65rem 0.75rem;
+  background-color: $bg-surface;
+  border: 1px solid $border-light;
+  border-radius: $radius-md;
+  transition: border-color 0.2s ease;
+
+  &:hover { border-color: rgba($accent, 0.25); }
+}
+
+.skill-gap-chip__name {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: $text-primary;
+  line-height: 1.4;
+}
+
+// ── Severity badges ───────────────────────────────────────────────────────────
+.severity-badge {
+  display: inline-block;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  padding: 0.15rem 0.45rem;
+  border-radius: $radius-sm;
+  width: fit-content;
+}
+
+.severity-high {
+  color: $accent;
+  border: 1px solid rgba($accent, 0.5);
+  background-color: rgba($accent, 0.1);
+}
+
+.severity-medium {
+  color: $amber;
+  border: 1px solid rgba($amber, 0.4);
+  background-color: rgba($amber, 0.08);
+}
+
+.severity-low {
+  color: $green;
+  border: 1px solid rgba($green, 0.4);
+  background-color: rgba($green, 0.08);
+}
+
+// ── Bottom nav links ──────────────────────────────────────────────────────────
+.bottom-links {
+  display: flex;
+  gap: 1.75rem;
+
+  a {
+    font-size: 0.75rem;
+    color: $text-dim;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover { color: $text-muted; }
+  }
+}
+
+// ── Loading and error states ──────────────────────────────────────────────────
+.interview-loading, .interview-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  width: 100%;
+  color: $text-primary;
+  text-align: center;
+  padding: 2rem;
+  background-color: $bg-page;
+
+  h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: $accent;
+  }
+
+  p {
+    font-size: 1rem;
+    color: $text-muted;
+    max-width: 500px;
+    line-height: 1.6;
+  }
+}
+
+.interview-loading {
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba($accent, 0.1);
+    border-radius: 50%;
+    border-top-color: $accent;
+    animation: spin 1s ease-in-out infinite;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 0 15px $accent-glow;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
