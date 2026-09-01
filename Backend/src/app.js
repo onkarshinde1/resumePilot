@@ -9,7 +9,13 @@ app.use(cookieParser())
 
 
 // cors 
-app.use(cors({origin: "http://localhost:5173",credentials:true}))
+app.use(cors({
+    origin: [
+        "http://localhost:5173",
+        "https://resume-pilot-rho.vercel.app"
+    ],
+    credentials: true
+}))
 
 // require all the routes here 
 const authRouter = require('./routes/auth.routes')
