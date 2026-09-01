@@ -1,0 +1,719 @@
+// ─────────────────────────────────────────────────────────────────────────────
+//  Landing Page  –  ResumePilot Introduction & Showcase
+// ─────────────────────────────────────────────────────────────────────────────
+
+$bg-page:       #0d1117;
+$bg-container:  #161b27;
+$bg-surface:    #1e2433;
+$bg-surface-alt:#181f2f;
+$border:        #252d3d;
+$border-light:  #2a3347;
+$accent:        #e1034d;
+$accent-hover:  #ff1f6d;
+$accent-glow:   rgba(225, 3, 77, 0.25);
+$accent-subtle: rgba(225, 3, 77, 0.1);
+$text-primary:  #e8ecf3;
+$text-muted:    #8b949e;
+$text-dim:      #586069;
+$green:         #34d399;
+$amber:         #f59e0b;
+$blue:          #60a5fa;
+$radius-xl:     1.5rem;
+$radius-lg:     1rem;
+$radius-md:     0.75rem;
+$radius-sm:     0.5rem;
+
+.landing-wrapper {
+  min-height: 100vh;
+  width: 100%;
+  background-color: $bg-page;
+  color: $text-primary;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+  position: relative;
+
+  // Background ambient glowing orbs
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(225, 3, 77, 0.15) 0%, rgba(13, 17, 23, 0) 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+// ── Navigation Bar ───────────────────────────────────────────────────────────
+.landing-nav {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  max-width: 1200px;
+  padding: 1.25rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(13, 17, 23, 0.85);
+  backdrop-filter: blur(12px);
+  z-index: 100;
+  border-bottom: 1px solid rgba(37, 45, 61, 0.4);
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: $text-primary;
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, $accent, #9e0135);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      box-shadow: 0 0 15px $accent-glow;
+    }
+
+    .brand-text {
+      span {
+        color: $accent;
+      }
+    }
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    a {
+      color: $text-muted;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: $text-primary;
+      }
+    }
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+
+    .nav-btn {
+      padding: 0.6rem 1.2rem;
+      font-size: 0.88rem;
+      border-radius: 0.75rem;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      &--ghost {
+        background: transparent;
+        color: $text-primary;
+        border: 1px solid transparent;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.06);
+          border-color: $border;
+        }
+      }
+
+      &--primary {
+        background-color: $accent;
+        color: white;
+        border: none;
+        box-shadow: 0 4px 14px $accent-glow;
+
+        &:hover {
+          background-color: $accent-hover;
+          transform: translateY(-1px);
+        }
+      }
+
+      &--secondary {
+        background-color: $bg-surface;
+        color: $text-primary;
+        border: 1px solid $border-light;
+
+        &:hover {
+          border-color: $accent;
+          color: #ff6b8b;
+        }
+      }
+    }
+  }
+}
+
+// ── Hero Section ─────────────────────────────────────────────────────────────
+.hero-section {
+  width: 100%;
+  max-width: 1100px;
+  padding: 4.5rem 1.5rem 3.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    background-color: $accent-subtle;
+    border: 1px solid rgba(225, 3, 77, 0.35);
+    color: #ff6b8b;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1.75rem;
+    box-shadow: 0 0 16px rgba(225, 3, 77, 0.15);
+  }
+
+  .hero-title {
+    font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -1px;
+    max-width: 900px;
+    margin-bottom: 1.25rem;
+
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 40%, #ff80a5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .accent-text {
+      color: $accent;
+      position: relative;
+      display: inline-block;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 2px;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: $accent;
+        border-radius: 2px;
+        opacity: 0.5;
+      }
+    }
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: $text-muted;
+    max-width: 680px;
+    line-height: 1.65;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 3.5rem;
+
+    .btn-hero {
+      padding: 0.85rem 1.85rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      border-radius: $radius-md;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.25s ease;
+      cursor: pointer;
+
+      &--primary {
+        background: linear-gradient(135deg, $accent, #bd0240);
+        color: white;
+        border: none;
+        box-shadow: 0 6px 20px rgba(225, 3, 77, 0.4);
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(225, 3, 77, 0.55);
+        }
+      }
+
+      &--outline {
+        background-color: $bg-container;
+        color: $text-primary;
+        border: 1px solid $border;
+
+        &:hover {
+          background-color: $bg-surface;
+          border-color: $border-light;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+// ── Interactive Preview Showcase ─────────────────────────────────────────────
+.preview-showcase {
+  width: 100%;
+  max-width: 1000px;
+  background-color: $bg-container;
+  border: 1px solid $border;
+  border-radius: $radius-xl;
+  padding: 1.75rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(225, 3, 77, 0.08);
+  position: relative;
+  overflow: hidden;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid $border;
+    margin-bottom: 1.5rem;
+
+    .window-dots {
+      display: flex;
+      gap: 0.45rem;
+
+      span {
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background-color: #333d52;
+
+        &:nth-child(1) { background-color: #ff5f56; }
+        &:nth-child(2) { background-color: #ffbd2e; }
+        &:nth-child(3) { background-color: #27c93f; }
+      }
+    }
+
+    .window-title {
+      font-size: 0.85rem;
+      color: $text-muted;
+      font-weight: 500;
+    }
+
+    .window-badge {
+      font-size: 0.72rem;
+      background-color: rgba(52, 211, 153, 0.12);
+      color: $green;
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      padding: 0.2rem 0.6rem;
+      border-radius: 1rem;
+      font-weight: 600;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 1.5rem;
+
+    @media (max-width: 820px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // Left card with match score
+  .score-card {
+    background-color: $bg-surface;
+    border: 1px solid $border-light;
+    border-radius: $radius-lg;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+
+    .circle-wrap {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid $accent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px $accent-glow;
+      background: radial-gradient(circle, rgba(225, 3, 77, 0.1) 0%, transparent 80%);
+
+      .num {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: white;
+        line-height: 1;
+      }
+
+      .lbl {
+        font-size: 0.65rem;
+        color: $text-muted;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+    }
+
+    .score-details {
+      h4 {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+      }
+
+      p {
+        font-size: 0.8rem;
+        color: $text-muted;
+      }
+    }
+
+    .skill-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      justify-content: center;
+
+      .pill {
+        font-size: 0.72rem;
+        padding: 0.25rem 0.55rem;
+        border-radius: 0.4rem;
+        background-color: $bg-surface-alt;
+        border: 1px solid $border;
+        color: $text-primary;
+
+        &--warn {
+          border-color: rgba(245, 158, 11, 0.35);
+          color: $amber;
+        }
+
+        &--gap {
+          border-color: rgba(225, 3, 77, 0.35);
+          color: #ff6b8b;
+        }
+      }
+    }
+  }
+
+  // Right card with questions
+  .questions-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+
+    .q-preview-item {
+      background-color: $bg-surface;
+      border: 1px solid $border-light;
+      border-radius: $radius-md;
+      padding: 1rem 1.25rem;
+      text-align: left;
+
+      .q-preview-top {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin-bottom: 0.5rem;
+
+        .tag {
+          font-size: 0.65rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          padding: 0.15rem 0.45rem;
+          border-radius: 0.3rem;
+
+          &--tech {
+            background-color: rgba(96, 165, 250, 0.15);
+            color: $blue;
+            border: 1px solid rgba(96, 165, 250, 0.3);
+          }
+
+          &--behavior {
+            background-color: rgba(245, 158, 11, 0.15);
+            color: $amber;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+          }
+        }
+
+        .q-title {
+          font-size: 0.92rem;
+          font-weight: 600;
+          color: $text-primary;
+        }
+      }
+
+      .q-preview-body {
+        font-size: 0.8rem;
+        color: $text-muted;
+        line-height: 1.5;
+        background-color: $bg-surface-alt;
+        padding: 0.6rem 0.8rem;
+        border-radius: 0.4rem;
+        border-left: 3px solid $accent;
+      }
+    }
+  }
+}
+
+// ── How It Works Section ─────────────────────────────────────────────────────
+.workflow-section {
+  width: 100%;
+  max-width: 1100px;
+  padding: 6rem 1.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  .section-header {
+    margin-bottom: 3.5rem;
+
+    .section-eyebrow {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: $accent;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    p {
+      font-size: 1rem;
+      color: $text-muted;
+      margin-top: 0.6rem;
+      max-width: 550px;
+    }
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+
+    @media (max-width: 860px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .step-card {
+    background-color: $bg-container;
+    border: 1px solid $border;
+    border-radius: $radius-lg;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      border-color: rgba(225, 3, 77, 0.35);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .step-number {
+      position: absolute;
+      top: 1rem;
+      right: 1.25rem;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: $text-dim;
+    }
+
+    .step-icon-box {
+      width: 56px;
+      height: 56px;
+      border-radius: $radius-md;
+      background-color: $bg-surface;
+      border: 1px solid $border-light;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.65rem;
+    }
+
+    p {
+      font-size: 0.88rem;
+      color: $text-muted;
+      line-height: 1.55;
+    }
+  }
+}
+
+// ── Features Grid Section ────────────────────────────────────────────────────
+.features-section {
+  width: 100%;
+  max-width: 1100px;
+  padding: 4rem 1.5rem 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .feature-box {
+    background-color: $bg-container;
+    border: 1px solid $border;
+    border-radius: $radius-lg;
+    padding: 2rem;
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    transition: all 0.25s ease;
+
+    &:hover {
+      border-color: rgba($accent, 0.35);
+      background-color: #1a202e;
+    }
+
+    .feature-icon-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(225, 3, 77, 0.12);
+      border: 1px solid rgba(225, 3, 77, 0.25);
+      color: $accent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .feature-content {
+      h3 {
+        font-size: 1.15rem;
+        font-weight: 700;
+        margin-bottom: 0.4rem;
+      }
+
+      p {
+        font-size: 0.88rem;
+        color: $text-muted;
+        line-height: 1.55;
+      }
+    }
+  }
+}
+
+// ── CTA Banner ───────────────────────────────────────────────────────────────
+.cta-banner {
+  width: 100%;
+  max-width: 1100px;
+  margin: 2rem 1.5rem 5rem;
+  padding: 3.5rem 2rem;
+  background: linear-gradient(135deg, rgba(30, 36, 51, 0.9) 0%, rgba(22, 27, 39, 0.95) 100%);
+  border: 1px solid rgba(225, 3, 77, 0.3);
+  border-radius: $radius-xl;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(225, 3, 77, 0.15);
+  position: relative;
+  overflow: hidden;
+
+  h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    margin-bottom: 0.85rem;
+  }
+
+  p {
+    font-size: 1.05rem;
+    color: $text-muted;
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+}
+
+// ── Footer ───────────────────────────────────────────────────────────────────
+.landing-footer {
+  width: 100%;
+  border-top: 1px solid $border;
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+  background-color: rgba(13, 17, 23, 0.95);
+
+  .footer-brand {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: $text-primary;
+
+    span {
+      color: $accent;
+    }
+  }
+
+  .footer-tagline {
+    font-size: 0.85rem;
+    color: $text-dim;
+  }
+
+  .footer-copyright {
+    font-size: 0.78rem;
+    color: $text-dim;
+    margin-top: 0.5rem;
+  }
+}

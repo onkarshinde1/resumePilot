@@ -23,7 +23,7 @@ const Register = () => {
 
         const res = await handleRegister({ username, email, password });
         if (res.success) {
-            navigate("/");
+            navigate("/dashboard");
         } else {
             setError(res.error || "Registration failed");
         }

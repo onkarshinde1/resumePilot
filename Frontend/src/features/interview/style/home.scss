@@ -8,10 +8,57 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 1.75rem;
-    padding: 2.5rem 1.5rem 2rem;
+    padding: 1.5rem 1.5rem 2.5rem;
     background-color: #0d1117;
+}
+
+// ── Top Navigation Bar ──────────────────────
+.home-top-bar {
+    width: 100%;
+    max-width: 920px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(37, 45, 61, 0.5);
+
+    .top-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        text-decoration: none;
+        color: #e8ecf3;
+        font-size: 1.15rem;
+        font-weight: 800;
+
+        .brand-icon {
+            font-size: 1.2rem;
+        }
+
+        .brand-name span {
+            color: #e1034d;
+        }
+    }
+
+    .top-actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        .user-greeting {
+            font-size: 0.85rem;
+            color: #8b949e;
+            font-weight: 500;
+        }
+
+        .top-logout-btn {
+            padding: 0.45rem 0.95rem;
+            font-size: 0.8rem;
+            border-radius: 0.65rem;
+        }
+    }
 }
 
 // ── Header ──────────────────────────────────

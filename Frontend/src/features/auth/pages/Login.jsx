@@ -22,7 +22,7 @@ function Login() {
 
         const res = await handleLogin({ email, password });
         if (res.success) {
-            navigate("/");
+            navigate("/dashboard");
         } else {
             setError(res.error || "Invalid email or password");
         }

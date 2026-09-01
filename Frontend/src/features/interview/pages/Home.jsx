@@ -1,12 +1,14 @@
-import React, {useState , useRef, useEffect} from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import "../style/home.scss"
 import useInterview from '../hook/useInterview'
-import { useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../auth/hooks/useAuth'
 
 const Home = () => {
-    const {loading, handleGenerateInterviewReport, reports, handleGetAllInterviewReport} = useInterview();
-    const [jobDescription,setJobDescription] = useState("")
-    const [selfDescription,setSelfDescription] = useState("")
+    const { loading, handleGenerateInterviewReport, reports, handleGetAllInterviewReport } = useInterview();
+    const { user, handleLogout } = useAuth();
+    const [jobDescription, setJobDescription] = useState("")
+    const [selfDescription, setSelfDescription] = useState("")
     const resumeFileInputRef = useRef(null)
     const navigate = useNavigate()
 
@@ -14,17 +16,22 @@ const Home = () => {
         handleGetAllInterviewReport()
     }, [])
 
+    const handleUserLogout = async () => {
+        await handleLogout();
+        navigate('/');
+    };
 
-    const handleGenerateReport  = async()=>{
+    const handleGenerateReport = async () => {
         const resumeFile = resumeFileInputRef.current.files[0]
-        const data = await handleGenerateInterviewReport({jobDescription, selfDescription, resumeFile })
+        const data = await handleGenerateInterviewReport({ jobDescription, selfDescription, resumeFile })
         
-        if(data){
+        if (data) {
             navigate(`/interview/${data._id}`)
         }   
     }
-    if(loading){
-        return(
+
+    if (loading) {
+        return (
             <main className='loading-screen'>
                 <h1>loading screen</h1>
             </main>
@@ -33,6 +40,20 @@ const Home = () => {
     
     return (
         <div className="home-wrapper">
+            {/* ── Top Bar ── */}
+            <div className="home-top-bar">
+                <Link to="/" className="top-brand">
+                    <span className="brand-icon">✈️</span>
+                    <span className="brand-name">Resume<span>Pilot</span></span>
+                </Link>
+
+                <div className="top-actions">
+                    {user && <span className="user-greeting">Hi, {user.username || user.email}</span>}
+                    <button onClick={handleUserLogout} className="button secondary-button top-logout-btn">
+                        Logout
+                    </button>
+                </div>
+            </div>
 
             {/* ── Page Header ── */}
             <header className="home-header">
