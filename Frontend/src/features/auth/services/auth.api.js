@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: "http://localhost:3000",
-    withCredentials: true
+    baseURL: import.meta.env.VITE_API_URL,
+    withCredentials: true,
 })
 
 export async function register({ username, email, password }) {
@@ -48,4 +48,4 @@ export async function getMe() {
         // 401 is expected when user is not logged in; return null
         return null
     }
-}
+}
