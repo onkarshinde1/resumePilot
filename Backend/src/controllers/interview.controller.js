@@ -1,4 +1,3 @@
-const mongoose = require("mongoose")
 const { PDFParse } = require("pdf-parse")
 const {generateInterviewReport , generateResumePdf} = require("../services/ai.service")
 const interviewReportModel = require("../models/interviewReport.model")
@@ -74,10 +73,10 @@ async function generateInterviewReportController(req, res){
 async function getInterviewReportByIdController(req, res){
     try {
         const { interviewID } = req.params
-        if (!interviewID || !mongoose.Types.ObjectId.isValid(interviewID)) {
+        if (!interviewID) {
             return res.status(400).json({
                 success: false,
-                message: "A valid Interview report ID is required"
+                message: "Interview report ID is required"
             })
         }
 
@@ -139,10 +138,10 @@ async function getAllInterviewReportController(req, res){
 async function generateResumePdfController(req, res){
     try {
         const { interviewID } = req.params
-        if (!interviewID || !mongoose.Types.ObjectId.isValid(interviewID)) {
+        if (!interviewID) {
             return res.status(400).json({
                 success: false,
-                message: "A valid Interview report ID is required"
+                message: "Interview report ID is required"
             })
         }
 

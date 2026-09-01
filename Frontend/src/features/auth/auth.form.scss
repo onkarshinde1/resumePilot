@@ -13,12 +13,27 @@ main {
         display: flex;
         flex-direction: column;
         gap: 1rem;
+
+        .error-message {
+            background-color: rgba(225, 3, 77, 0.15);
+            border: 1px solid #e1034d;
+            color: #ff6b8b;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            text-align: center;
+        }
     }
 
     form {
         display: flex;
         flex-direction: column;
         gap: 0.75rem;
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
     }
 
     .input-group {

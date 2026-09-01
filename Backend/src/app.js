@@ -19,16 +19,5 @@ const interviewRouter = require('./routes/interview.routes')
 app.use("/api/auth" , authRouter)
 app.use("/api/interview" , interviewRouter )
 
-/**
- * @route POST api/auth/register
- * @description register a new user
- * @access Public
- */
-
-authRouter.post("/register", (req, res)=>{
-    
-})
-
-
-
 module.exports = app
+

@@ -1,23 +1,21 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL:"http://localhost:3000",
+    baseURL: "http://localhost:3000",
     withCredentials: true
 })
 
 export async function register({ username, email, password }) {
-
     try {
         const response = await api.post('/api/auth/register', {
             username, email, password
         })
-
         return response.data
     } catch (error) {
-        throw Error(error.response.data.message)
+        const message = error.response?.data?.message || error.message || "Registration failed"
+        throw new Error(message)
     }
 }
-
 
 export async function login({ email, password }) {
     try {
@@ -27,16 +25,18 @@ export async function login({ email, password }) {
         })
         return response.data
     } catch (error) {
-        console.log(error)
-        throw error.response.data.message
+        const message = error.response?.data?.message || error.message || "Invalid Email or Password"
+        throw new Error(message)
     }
 }
 
 export async function logout() {
-    try{
-        await api.get('/api/auth/logout')
-    }catch(error){
-        console.log(error)
+    try {
+        const response = await api.get('/api/auth/logout')
+        return response.data
+    } catch (error) {
+        console.error("Logout error:", error)
+        return null
     }
 }
 
@@ -45,10 +45,7 @@ export async function getMe() {
         const response = await api.get('/api/auth/get-me')
         return response.data
     } catch (error) {
-        if (error.response && error.response.status === 401) {
-            return null
-        }
-        console.error("Error fetching user details:", error)
-        throw error
+        // 401 is expected when user is not logged in; return null
+        return null
     }
-}
+}

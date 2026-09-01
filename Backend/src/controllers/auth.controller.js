@@ -38,7 +38,12 @@ async function registerUserController(req, res) {
         {expiresIn :"1d"}
     )
 
-    res.cookie("token" , token)
+    res.cookie("token" , token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: 24 * 60 * 60 * 1000
+    })
 
     res.status(201).json({
         message  :"user registered successfully",
@@ -60,10 +65,16 @@ async function loginUserController(req , res) {
     
     const { email, password } = req.body
 
+    if (!email || !password) {
+        return res.status(400).json({
+            message: "Email and password are required"
+        })
+    }
+
     const user = await userModel.findOne({email})
     if(!user){
         return res.status(400).json({
-            message : "invalid credentials"
+            message : "Invalid Email or Password"
         })
     }
 
@@ -71,7 +82,7 @@ async function loginUserController(req , res) {
 
     if(!isPasswordValid){
         return res.status(400).json({
-            meaasge : "Invalid Email or Password"
+            message : "Invalid Email or Password"
         })
     }
 
@@ -81,7 +92,12 @@ async function loginUserController(req , res) {
         {expiresIn :"1d"}
     )
 
-    res.cookie("token" , token)
+    res.cookie("token" , token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: 24 * 60 * 60 * 1000
+    })
 
     res.status(200).json({
         message  :"user logged in successfully",
@@ -123,8 +139,14 @@ async function logoutUserController(req, res) {
 async function getMeController(req , res){
     const user = await userModel.findById(req.user.id)
 
+    if (!user) {
+        return res.status(404).json({
+            message: "User not found"
+        })
+    }
+
     res.status(200).json({
-        messaege : "user details fetch succesfully",
+        message : "user details fetch successfully",
         user : {
             id : user._id,
             username : user.username,
