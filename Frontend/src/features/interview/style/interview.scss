@@ -235,6 +235,29 @@ $radius-sm:    0.45rem;
   box-shadow: 0 0 8px $accent-glow;
 }
 
+.iv-sidebar__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+}
+
+.download-resume-button,
+.logout-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding-block: 0.65rem;
+  padding-inline: 0.75rem;
+}
+
+.logout-button {
+  color: $text-muted;
+}
+
 // ── Center main area ──────────────────────────────────────────────────────────
 .iv-main {
   flex: 1;

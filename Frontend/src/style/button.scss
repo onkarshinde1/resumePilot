@@ -14,6 +14,18 @@
         color: white;
     }
 
+    &.secondary-button{
+        background-color: transparent;
+        color: #e8ecf3;
+        border: 1px solid #2a3347;
+
+        &:hover {
+            background-color: rgba(225, 3, 77, 0.1);
+            color: #ff6b8b;
+            border-color: rgba(225, 3, 77, 0.3);
+        }
+    }
+
     &:active{
         transform: scale(0.9);
     }
